@@ -1,37 +1,91 @@
+# -*- coding: utf-8 -*-
+"""
+Éditeur de Spyder
+
+Ce script temporaire est sauvegardé ici :
+C:\Users\sebastien.thao\.spyder2\.temp.py
+"""
+
+# -*- coding: utf-8 -*-
 
 from Tkinter import *
 
-Cases = 10
-
-taille_case = 10
-
-hauteur_fenetre = Case*(taille_case+1)
-largeur_fenetre = Case*(taille_case+1)
-
 fenetre = Tk()
+largeur = 100
+hauteur = 100
 
-c= Canvas(fenetre, width= largeur_fenetre, height= hauteur_fenetre, bg= "black")
+type_case = "Herbe"
 
-def case(i,j):
-    c.create_rectangle(i*taille_case,j*taille_case,taille_case*i + taille_case,taille_case*j + taille_case, outline="red")
+N=10
+L_case=10
 
 
-def afficher_matrice(m):
-    for i in range(Case):
-        for j in range(Case):
-            case(i,j)
+
+
+c = Canvas(fenetre, width= largeur, height= hauteur, bg= "black", borderwidth = 0)
+
+M = Button(fenetre, text="mur")
+M.pack(side = RIGHT)
+H = Button(fenetre, text="herbe")
+H.pack(side = RIGHT)
+Co = Button(fenetre, text="coffre")
+Co.pack()
+RQ = Button(fenetre, text="quitter", command=fenetre.quit)
+RQ.pack()
+
+
+def lignes():
+    for i in range(0,N*L_case,L_case):
+        # les +2 sont à cause de Tkinter qui rajoute 2
+        c.create_line(i+2, 0, i+2,N*L_case+2 , fill = "red")
+        c.create_line(0, i+2, N*L_case+2, i+2, fill = "red")
+
+
+def mur():
+    global type_case
+    type_case = "Mur"
+    return type_case
+print mur()
+    
+def herbe():
+    global type_case
+    type_case = "Herbe"
+    return type_case
+print herbe()
+
+def coffre():
+    global type_case
+    type_case = "Coffre"
+    return type_case
+print coffre()
+
+def c_matrice():    
+    m = []
+    for i in range(N):
+        for j in range(N):
+            m.append([type_case])
+            
+    return m
+    
+print c_matrice()
+
+l = c_matrice
+
+
+
+"""def afficher_matrice(l):
+    for i in range(N):
+        for j in range(N):
+            case(i,j)"""
         
 
 
-
-def c_matrice():
-    m = []
-    for i in range(Case):
-        for j in range(Case):
-            
+lignes()
 
 c.pack()
 
-fenetre.mainloop()
+c.update()
 
-fenetre.pack()
+fenetre.title('Editeur - Jeu PACSMEN')
+
+fenetre.mainloop()
